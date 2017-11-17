@@ -13,10 +13,11 @@ app.set('views', path.join(__dirname, 'public'))
 app.set('view engine', 'ejs')
 
 app.get('/', (request, response) => {
-    const data = {
-        students: require('./db/studentsDB.json')
-    }
-    response.render('index', data)
+    response.render('index', { student:null, submitted:false })
+})
+
+app.get('/status', (request, response) => {
+    response.render('index', { student:null, submitted:true })
 })
 
 app.listen(PORT, () => { 

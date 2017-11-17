@@ -13,11 +13,20 @@ app.set('views', path.join(__dirname, 'public'))
 app.set('view engine', 'ejs')
 
 app.get('/', (request, response) => {
-    response.render('index', { student:null, submitted:false })
+    const data = { student:null, submitted:false }
+    response.render('index', data)
 })
 
 app.get('/status', (request, response) => {
-    response.render('index', { student:null, submitted:true })
+    const { getStudentStatus } = require('./app/check-students')
+    studentStatus = getStudentStatus(request.query.studentId)
+    
+    const data = {
+        student: studentStatus,
+        submitted: true
+    }
+
+    response.render('index', data)
 })
 
 app.listen(PORT, () => { 
